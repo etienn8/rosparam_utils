@@ -167,5 +167,7 @@ namespace xmlrpc_utils
         {
                 ROS_ERROR_STREAM("CONFIG: Can't find a parameter package list named: " << name_of_list);
         }
+        
+        return output_struct_list;
     }
 };
