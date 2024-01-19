@@ -3,10 +3,12 @@
 #include <string>
 #include <map>
 #include <utility>
+#include <vector>
 
-using std::string;
 using std::map;
 using std::pair;
+using std::string;
+using std::vector;
 
 namespace xmlrpc_utils
 {
@@ -18,6 +20,32 @@ namespace xmlrpc_utils
     class ParameterPackageFetchStruct
     {
         public:
+
+            ParameterPackageFetchStruct() {};
+
+            /**
+             * @brief Construct based on given string lists of string and float parameters.
+             * @param string_parameter_name_list List of expected string parameter names.
+             * @param float_parameter_name_list List of expected float parameter names
+            */
+            ParameterPackageFetchStruct(vector<string> string_parameter_name_list,
+                                                                vector<string> float_parameter_name_list)
+            {            
+                // String parameters
+                for (vector<string>::iterator string_param_name_it = string_parameter_name_list.begin(); string_param_name_it != string_parameter_name_list.end(); ++string_param_name_it)
+                {
+                    std::pair<string, bool> temp_pair("", false);
+                    string_params_[*string_param_name_it] = temp_pair;
+                }
+
+                // Float parameters
+                for (vector<string>::iterator float_param_name_it = float_parameter_name_list.begin(); float_param_name_it != float_parameter_name_list.end(); ++float_param_name_it)
+                {
+                    std::pair<float, bool> temp_pair(0.0f, false);
+                    float_params_[*float_param_name_it] = temp_pair;
+                }
+            }
+
             /**
              * @brief Name of the list of parameters.
             */
