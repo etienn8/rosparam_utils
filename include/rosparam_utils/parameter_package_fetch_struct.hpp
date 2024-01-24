@@ -49,7 +49,7 @@ namespace xmlrpc_utils
             /**
              * @brief Name of the list of parameters.
             */
-            string param_pacakge_name_ = "";
+            string param_package_name_ = "";
 
             /**
              * @brief Map where the key is the name of the string parameter to fetch. The value of the map is a pair where
