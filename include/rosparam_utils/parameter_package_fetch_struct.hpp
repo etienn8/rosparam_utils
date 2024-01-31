@@ -28,8 +28,8 @@ namespace xmlrpc_utils
              * @param string_parameter_name_list List of expected string parameter names.
              * @param float_parameter_name_list List of expected float parameter names
             */
-            ParameterPackageFetchStruct(vector<string> string_parameter_name_list,
-                                                                vector<string> float_parameter_name_list)
+            ParameterPackageFetchStruct(vector<string>& string_parameter_name_list,
+                                                                vector<string>& float_parameter_name_list)
             {            
                 // String parameters
                 for (vector<string>::iterator string_param_name_it = string_parameter_name_list.begin(); string_param_name_it != string_parameter_name_list.end(); ++string_param_name_it)
