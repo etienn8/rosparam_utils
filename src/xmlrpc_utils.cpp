@@ -26,7 +26,7 @@ namespace xmlrpc_utils
     bool paramMatchAndParse<float>(const XmlRpc::XmlRpcValue parameter, const string& parameter_name_to_check_against, float& output)
     {
         auto parameter_it = parameter.begin();
-
+        
         const string& parameter_name = parameter_it->first;
         const XmlRpc::XmlRpcValue& parameter_value = parameter_it->second;
         
@@ -102,6 +102,18 @@ namespace xmlrpc_utils
                                         {
                                             parameter_found = true;
                                             param_hit_it->second.first = static_cast<float>(static_cast<double>(parameter_value));
+                                            // Indicate that the parameter value is set.
+                                            param_hit_it->second.second = true;
+                                        }
+                                    }
+
+                                    if(!parameter_found && (parameter_value.getType() == XmlRpc::XmlRpcValue::TypeInt))
+                                    {
+                                        auto param_hit_it = new_param_struct.int_params_.find(parameter_name);
+                                        if (param_hit_it != new_param_struct.int_params_.end())
+                                        {
+                                            parameter_found = true;
+                                            param_hit_it->second.first = static_cast<int>(parameter_value);
                                             // Indicate that the parameter value is set.
                                             param_hit_it->second.second = true;
                                         }
