@@ -26,6 +26,7 @@ namespace xmlrpc_utils
                 vector<string> string_parameter_name_list;
                 vector<string> float_parameter_name_list;
                 vector<string> int_parameter_name_list;
+                vector<string> bool_parameter_name_list;
             };
 
             ParameterPackageFetchStruct() {};
@@ -51,11 +52,18 @@ namespace xmlrpc_utils
                     float_params_[*float_param_name_it] = temp_pair;
                 }
 
-                // Float parameters
+                // Int parameters
                 for (vector<string>::iterator int_param_name_it = fetch_options.int_parameter_name_list.begin(); int_param_name_it != fetch_options.int_parameter_name_list.end(); ++int_param_name_it)
                 {
-                    std::pair<int, bool> temp_pair(0., false);
+                    std::pair<int, bool> temp_pair(0, false);
                     int_params_[*int_param_name_it] = temp_pair;
+                }
+
+                // Bool parameters
+                for (vector<string>::iterator bool_param_name_it = fetch_options.bool_parameter_name_list.begin(); bool_param_name_it != fetch_options.bool_parameter_name_list.end(); ++bool_param_name_it)
+                {
+                    std::pair<bool, bool> temp_pair(false, false);
+                    bool_params_[*bool_param_name_it] = temp_pair;
                 }
             }
 
@@ -85,6 +93,13 @@ namespace xmlrpc_utils
             map<string, pair<int, bool>> int_params_;
 
             /**
+             * @brief Map where the key is the name of the boolean parameter to fetch. The value of the map is 
+             * a pair where the first value is the value of the parameter and the second is a flag indicating if the value 
+             * was set.
+            */
+            map<string, pair<bool, bool>> bool_params_;
+
+            /**
              * @brief Set the flag in each element of all maps indicating that the value was set to false.  
             */
             void resetTheSetFlags()
@@ -102,6 +117,11 @@ namespace xmlrpc_utils
                 for (auto int_param_it = int_params_.begin(); int_param_it != int_params_.end(); ++int_param_it)
                 {
                     int_param_it->second.second = false;
+                }
+
+                for (auto bool_param_it = bool_params_.begin(); bool_param_it != bool_params_.end(); ++bool_param_it)
+                {
+                    bool_param_it->second.second = false;
                 }
             }
 

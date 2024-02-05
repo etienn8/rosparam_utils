@@ -119,6 +119,18 @@ namespace xmlrpc_utils
                                         }
                                     }
 
+                                    if(!parameter_found && (parameter_value.getType() == XmlRpc::XmlRpcValue::TypeBoolean))
+                                    {
+                                        auto param_hit_it = new_param_struct.bool_params_.find(parameter_name);
+                                        if (param_hit_it != new_param_struct.bool_params_.end())
+                                        {
+                                            parameter_found = true;
+                                            param_hit_it->second.first = static_cast<bool>(parameter_value);
+                                            // Indicate that the parameter value is set.
+                                            param_hit_it->second.second = true;
+                                        }
+                                    }
+
                                     if (!parameter_found)
                                     {
                                         ROS_WARN_STREAM("CONFIG: Unknown parameter or bad type in node " << name_of_node <<  ": " << parameter_name<< ". Will be ignored.");
