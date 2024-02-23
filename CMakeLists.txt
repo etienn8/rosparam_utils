@@ -102,7 +102,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES ${PROJECT_NAME}_lib
+  LIBRARIES ${PROJECT_NAME}_lib data_validation_lib
   CATKIN_DEPENDS roscpp
 #  DEPENDS system_lib
 )
@@ -121,6 +121,10 @@ include_directories(
 ## Declare a C++ library
 add_library(${PROJECT_NAME}_lib
    src/xmlrpc_utils.cpp
+)
+
+add_library(data_validation_lib
+   src/data_validation.cpp
 )
 
 ## Add cmake target dependencies of the library
@@ -147,7 +151,6 @@ add_library(${PROJECT_NAME}_lib
 target_link_libraries(${PROJECT_NAME}_lib
   ${catkin_LIBRARIES}
 )
-
 #############
 ## Install ##
 #############
